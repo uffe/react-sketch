@@ -32,13 +32,13 @@ class TextField extends FabricCanvasTool {
             cursorWidth: 3,
             editingBorderColor: '#f00',
             stroke: this._color,
-            fill: this._color
+            fill: this._color,
         });
         canvas.add(this.itext);
         canvas.setActiveObject(this.itext);
-
         this.itext.enterEditing();
         this.itext.hiddenTextarea.focus();
+        canvas.renderAll();
     }
 
     doMouseMove(o) {

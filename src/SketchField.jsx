@@ -116,11 +116,11 @@ class SketchField extends Component {
         window.addEventListener('resize', this._resize, false);
 
         // Initialize History, with maximum number of undo steps
-        this._history = new History(undoSteps);
+        this._history = new History(undoSteps, true);
 
         // Events binding
         canvas.on('object:added', this._onObjectAdded);
-        canvas.on('object:modified', this._onObjectModified);
+        canvas.on('object:modified', this._onObjectAdded);
         canvas.on('object:removed', this._onObjectRemoved);
         canvas.on('mouse:down', this._onMouseDown);
         canvas.on('mouse:move', this._onMouseMove);
@@ -357,7 +357,8 @@ class SketchField extends Component {
         let history = this._history;
         let [obj,prevState,currState] = history.getCurrent();
         history.undo();
-        if (obj.version === 1) {
+        // if (obj.version === 1) {
+        if (true) {
             obj.remove();
         } else {
             obj.setOptions(JSON.parse(prevState));
@@ -385,8 +386,10 @@ class SketchField extends Component {
                     obj.version = 1;
                 });
             } else {
-                obj.version += 1;
-                obj.setOptions(JSON.parse(currState));
+                if (currState) {
+                    obj.version += 1;
+                    obj.setOptions(JSON.parse(currState));
+                }
             }
             obj.setCoords();
             canvas.renderAll();
