@@ -116,7 +116,7 @@ class SketchField extends Component {
         window.addEventListener('resize', this._resize, false);
 
         // Initialize History, with maximum number of undo steps
-        this._history = new History(undoSteps, true);
+        this._history = new History(undoSteps);
 
         // Events binding
         canvas.on('object:added', this._onObjectAdded);
