@@ -12,6 +12,7 @@ import Line from './line';
 import Rectangle from './rectangle';
 import Circle from './circle';
 import Pan from './pan';
+import TextField from './textfield';
 import Tool from './tools';
 
 const fabric = require('fabric').fabric;
@@ -150,6 +151,7 @@ class SketchField extends Component {
         this._tools[Tool.Line] = new Line(fabricCanvas);
         this._tools[Tool.Rectangle] = new Rectangle(fabricCanvas);
         this._tools[Tool.Circle] = new Circle(fabricCanvas);
+        this._tools[Tool.TextField] = new TextField(fabricCanvas);
         this._tools[Tool.Pan] = new Pan(fabricCanvas);
     }
 
