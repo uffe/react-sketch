@@ -45,6 +45,8 @@ class Arrow extends FabricCanvasTool {
             lockScalingX: true,
             lockScalingY: true,
             lockRotation: true,
+            selectable: false,
+            evented: false,            
             angle: -45,
             width: 20,
             height: 20,
