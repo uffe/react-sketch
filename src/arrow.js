@@ -48,7 +48,8 @@ class Arrow extends FabricCanvasTool {
             angle: -45,
             width: 20,
             height: 20,
-            fill: '#000',
+            fill: this._color,
+            stroke: this._color,
             objName: 'ArrowHead',
         });
 

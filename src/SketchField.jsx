@@ -366,7 +366,7 @@ class SketchField extends Component {
         let [obj,prevState,currState] = history.getCurrent();
         history.undo();
         if (obj.version === 1) {
-        // if (true) {
+            // do a double undo if it's an arrow or itext (not an ideal solution)
             if(obj.objName==='ArrowHead' || (obj.objName==='iText' && obj.getText().length > 0)) {
                 obj.remove();
                 [obj,prevState,currState] = history.getCurrent();
@@ -389,6 +389,9 @@ class SketchField extends Component {
     /**
      * Perform a redo operation on canvas, if it cannot redo it will leave the canvas intact
      */
+    // ----------------------------------------------------------------------------------
+    // NOTE: Redo currently has a bug with the arrow and itext objects, so do not use it.
+    // ----------------------------------------------------------------------------------
     redo() {
         let history = this._history;
         if (history.canRedo()) {
@@ -396,7 +399,7 @@ class SketchField extends Component {
             //noinspection Eslint
             let [obj,prevState,currState] = history.redo();
             if (obj.version === 0) {
-            // if(true) {
+                // do a double redo?
                 if(obj.objName==='ArrowLine' || (obj.objName==='iText' && obj.getText().length > 0)) {                 
                     this.setState({action: false}, () => {
                         canvas.add(obj);
