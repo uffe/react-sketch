@@ -5,6 +5,11 @@ import FabricCanvasTool from './fabrictool'
 const fabric = require('fabric').fabric;
 
 class TextField extends FabricCanvasTool {
+    constructor(context, removeObject) {
+        super(context, removeObject);
+        
+        this.onExitEdit = this.onExitEdit.bind(this);
+    }
 
     configureCanvas(props) {
         let canvas = this._canvas;
@@ -33,12 +38,22 @@ class TextField extends FabricCanvasTool {
             editingBorderColor: '#f00',
             stroke: this._color,
             fill: this._color,
+            objName: 'iText',            
         });
+        this.itext.on('editing:exited', this.onExitEdit);
+
         canvas.add(this.itext);
         canvas.setActiveObject(this.itext);
         this.itext.enterEditing();
         this.itext.hiddenTextarea.focus();
         canvas.renderAll();
+    }
+
+    onExitEdit() {
+        // if the user clicks off the textfield and it is empty, send message to the SketchField parent to remove it
+        if(this.itext.getText().length === 0) {
+            this.removeObject();
+        }
     }
 
     doMouseMove(o) {

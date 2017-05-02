@@ -5,8 +5,9 @@
  * "Abstract" like base class for a Canvas tool
  */
 class FabricCanvasTool {
-    constructor(canvas) {
+    constructor(canvas, removeObject=null) {
         this._canvas = canvas;
+        this.removeObject = removeObject;
     }
 
     configureCanvas(props) {

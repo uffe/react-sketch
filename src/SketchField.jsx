@@ -9,6 +9,7 @@ import {uuid4} from './utils';
 import Select from './select';
 import Pencil from './pencil';
 import Line from './line';
+import Arrow from './arrow';
 import Rectangle from './rectangle';
 import Circle from './circle';
 import Pan from './pan';
@@ -72,6 +73,7 @@ class SketchField extends Component {
         this.zoom = this.zoom.bind(this);
         this.enableTouchScroll = this.enableTouchScroll.bind(this);
         this.disableTouchScroll = this.disableTouchScroll.bind(this);
+        this.onRemoveObject = this.onRemoveObject.bind(this);
         // events
         this._onMouseUp = this._onMouseUp.bind(this);
         this._onMouseOut = this._onMouseOut.bind(this);
@@ -144,14 +146,19 @@ class SketchField extends Component {
         }
     }
 
+    onRemoveObject() {
+        this.undo();
+    }
+
     _initTools(fabricCanvas) {
         this._tools = {};
         this._tools[Tool.Select] = new Select(fabricCanvas);
         this._tools[Tool.Pencil] = new Pencil(fabricCanvas);
         this._tools[Tool.Line] = new Line(fabricCanvas);
+        this._tools[Tool.Arrow] = new Arrow(fabricCanvas);        
         this._tools[Tool.Rectangle] = new Rectangle(fabricCanvas);
         this._tools[Tool.Circle] = new Circle(fabricCanvas);
-        this._tools[Tool.TextField] = new TextField(fabricCanvas);
+        this._tools[Tool.TextField] = new TextField(fabricCanvas, this.onRemoveObject);
         this._tools[Tool.Pan] = new Pan(fabricCanvas);
     }
 
@@ -268,6 +275,7 @@ class SketchField extends Component {
         }
     }
 
+
     /**
      * Track the resize of the window and update our state
      *
@@ -357,9 +365,16 @@ class SketchField extends Component {
         let history = this._history;
         let [obj,prevState,currState] = history.getCurrent();
         history.undo();
-        // if (obj.version === 1) {
-        if (true) {
-            obj.remove();
+        if (obj.version === 1) {
+        // if (true) {
+            if(obj.objName==='ArrowHead' || (obj.objName==='iText' && obj.getText().length > 0)) {
+                obj.remove();
+                [obj,prevState,currState] = history.getCurrent();
+                history.undo();
+                obj.remove();
+            } else {
+                obj.remove();
+            }
         } else {
             obj.setOptions(JSON.parse(prevState));
             obj.setCoords();
@@ -381,10 +396,21 @@ class SketchField extends Component {
             //noinspection Eslint
             let [obj,prevState,currState] = history.redo();
             if (obj.version === 0) {
-                this.setState({action: false}, () => {
-                    canvas.add(obj);
-                    obj.version = 1;
-                });
+            // if(true) {
+                if(obj.objName==='ArrowLine' || (obj.objName==='iText' && obj.getText().length > 0)) {                 
+                    this.setState({action: false}, () => {
+                        canvas.add(obj);
+                        obj.version = 1;
+                        [obj,prevState,currState] = history.redo();
+                        canvas.add(obj);
+                        obj.version = 1;
+                    }); 
+                } else {
+                     this.setState({action: false}, () => {
+                        canvas.add(obj);
+                        obj.version = 1;
+                    });                   
+                }
             } else {
                 if (currState) {
                     obj.version += 1;
