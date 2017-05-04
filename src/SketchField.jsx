@@ -535,6 +535,7 @@ class SketchField extends Component {
             })
         }
         let img = new Image();
+        img.crossOrigin = 'Anonymous';
         img.onload = () => canvas.setBackgroundImage(new fabric.Image(img), () => canvas.renderAll(), options);
         img.src = dataUrl;
     }
