@@ -30,7 +30,7 @@ class TextField extends FabricCanvasTool {
             originY: 'center',
             fontFamily: 'verdana',
             fill: '#333',
-            fontSize: 30,
+            fontSize: 16,
             cursorColor: '#777',
             cursorDelay: 2000,
             cursorDuration: 500,
