@@ -15,7 +15,8 @@ class TextField extends FabricCanvasTool {
         let canvas = this._canvas;
         canvas.isDrawingMode = canvas.selection = false;
         canvas.forEachObject((o) => o.selectable = o.evented = false);
-        this._color = props.lineColor;              
+        this._color = props.lineColor;
+        this._fontSize = props.fontSize;
     }
 
     doMouseDown(o) {
@@ -30,7 +31,7 @@ class TextField extends FabricCanvasTool {
             originY: 'center',
             fontFamily: 'verdana',
             fill: '#333',
-            fontSize: 16,
+            fontSize: this._fontSize,
             cursorColor: '#777',
             cursorDelay: 2000,
             cursorDuration: 500,

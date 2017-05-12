@@ -28,6 +28,8 @@ class SketchField extends Component {
         lineColor: PropTypes.string,
         // The width of the line
         lineWidth: PropTypes.number,
+        // Size of TextField font
+        fontSize: PropTypes.number,
         // the fill color of the shape when applicable
         fillColor: PropTypes.string,
         // the background color of the sketch
@@ -53,6 +55,7 @@ class SketchField extends Component {
     static defaultProps = {
         lineColor: 'black',
         lineWidth: 10,
+        fontSize: 16,
         fillColor: 'transparent',
         backgroundColor: 'transparent',
         opacity: 1.0,
