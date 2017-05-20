@@ -89,7 +89,7 @@ class SketchField extends Component {
         this._onObjectModified = this._onObjectModified.bind(this);
         this._onObjectRotating = this._onObjectRotating.bind(this);
         // pure render
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);       
     }
 
     state = {
@@ -146,7 +146,7 @@ class SketchField extends Component {
             if ('url' === defaultDataType) {
                 this.fromDataURL(defaultData);
             }
-        }
+        }     
     }
 
     onRemoveObject() {
@@ -541,6 +541,14 @@ class SketchField extends Component {
         img.crossOrigin = 'Anonymous';
         img.onload = () => canvas.setBackgroundImage(new fabric.Image(img), () => canvas.renderAll(), options);
         img.src = dataUrl;
+    }
+
+    // Loads an Image object into the bottom layer of the canvas. Unlike a background image, this will work with zoom.
+    setBaseImage(img) {
+        let canvas = this._fc;
+        let image = new fabric.Image(img);
+        image.set({ selectable: false });
+        canvas.add(image);
     }
 
     render() {

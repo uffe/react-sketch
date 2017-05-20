@@ -30,7 +30,6 @@ class TextField extends FabricCanvasTool {
             originX: 'left',
             originY: 'center',
             fontFamily: 'verdana',
-            fill: '#333',
             fontSize: this._fontSize,
             cursorColor: '#777',
             cursorDelay: 2000,
@@ -39,7 +38,8 @@ class TextField extends FabricCanvasTool {
             editingBorderColor: '#f00',
             stroke: this._color,
             fill: this._color,
-            objName: 'iText',            
+            objName: 'iText',
+            backgroundColor: 'rgba(255,255,255,0.8)',
         });
         this.itext.on('editing:exited', this.onExitEdit);
 
