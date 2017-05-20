@@ -547,7 +547,14 @@ class SketchField extends Component {
     setBaseImage(img) {
         let canvas = this._fc;
         let image = new fabric.Image(img);
-        image.set({ selectable: false });
+        image.set({ 
+            selectable: false,
+            top: canvas.height / 2,
+            left: canvas.width / 2,
+            scaleY: canvas.height / image.height,
+            scaleX: canvas.width / image.width           
+        });
+        canvas.centerObject(image);
         canvas.add(image);
     }
 
