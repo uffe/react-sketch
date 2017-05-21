@@ -516,6 +516,8 @@ class SketchField extends Component {
         return discarded;
     }
 
+    // Note: the "background" image does not receive zoom requests, so it's not very useful.
+    // Background images are instead loaded onto a normal layer via setBaseImage().
     setBackgroundFromDataUrl(dataUrl, options = {}) {
         let canvas = this._fc;
         if (options.stretched) {
@@ -556,6 +558,11 @@ class SketchField extends Component {
         });
         canvas.centerObject(image);
         canvas.add(image);
+    }
+
+    centerContent() {
+        let canvas = this._fc;
+        canvas.absolutePan({ x: 0, y: 0 });
     }
 
     render() {
