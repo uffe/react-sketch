@@ -563,6 +563,7 @@ class SketchField extends Component {
     centerContent() {
         let canvas = this._fc;
         canvas.absolutePan({ x: 0, y: 0 });
+        canvas.setZoom(1);
     }
 
     render() {
