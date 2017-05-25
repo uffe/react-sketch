@@ -8,5 +8,6 @@ export default {
     Rectangle: 'rectangle',
     Select: 'select',
     Pan: 'pan',
-    TextField: 'textfield'
+    TextField: 'textfield',
+    None: 'none',
 }
