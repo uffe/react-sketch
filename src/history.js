@@ -107,7 +107,8 @@ class History {
      * @returns {boolean}
      */
     canUndo() {
-        return this.undoList.length > 0 || this.current != null;
+        // Note: changed undo so that you cannot undo the first operation (background image placement)
+        return this.undoList.length > 1 || this.current != null;
     }
 
     /**
