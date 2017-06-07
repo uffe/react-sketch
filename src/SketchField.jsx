@@ -150,13 +150,6 @@ class SketchField extends Component {
                 this.fromDataURL(defaultData);
             }
         }
-
-        // set all created paths to low draw order
-        canvas.on('path:created', function(e){
-            const path = e.path;
-            canvas.setToBack(path);
-            canvas.setToBack(this.baseImage);
-        });
     }
 
     onRemoveObject() {
@@ -263,9 +256,6 @@ class SketchField extends Component {
 
     _onMouseDown(e) {
         this._selectedTool.doMouseDown(e);
-        // send background image to back of draw order
-        const canvas = this._fc;
-        canvas.setToBack(this.baseImage);
     }
 
     _onMouseMove(e) {
@@ -280,6 +270,12 @@ class SketchField extends Component {
                 onChange(e.e);
             }, 10);
         }
+        let canvas = this._fc;
+        canvas.getObjects().map((obj) => {
+            if (obj.objName === 'iText') {
+                canvas.bringToFront(obj);
+            }
+        });
     }
 
     _onMouseOut(e) {

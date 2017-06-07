@@ -30,7 +30,6 @@ class Line extends FabricCanvasTool {
             evented: false
         });
         canvas.add(this.line);
-        canvas.setToBack(this.line);        
     }
 
     doMouseMove(o) {
