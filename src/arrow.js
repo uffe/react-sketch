@@ -56,7 +56,7 @@ class Arrow extends FabricCanvasTool {
         });
 
         canvas.insertAt(this.line, 1);
-        canvas.isnertAt(this.arrowhead, 1);
+        canvas.insertAt(this.arrowhead, 1);
     }
 
     doMouseMove(o) {
