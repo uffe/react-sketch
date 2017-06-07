@@ -37,7 +37,7 @@ class Rectangle extends FabricCanvasTool {
             evented: false,
             angle: 0
         });
-        canvas.add(this.rect);
+        canvas.insertAt(this.rect, 1);
     }
 
     doMouseMove(o) {

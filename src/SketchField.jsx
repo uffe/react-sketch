@@ -226,6 +226,13 @@ class SketchField extends Component {
         let state = JSON.stringify(obj.originalState);
         // object, previous state, current state
         this._history.keep([obj, state, state]);
+
+        let canvas = this._fc;
+        canvas.getObjects().map((obj) => {
+            if (obj.objName === 'iText') {
+                canvas.bringToFront(obj);
+            }
+        });        
     }
 
     _onObjectModified(e) {
@@ -268,12 +275,6 @@ class SketchField extends Component {
             let onChange = this.props.onChange;
             setTimeout(() => {
                 onChange(e.e);
-                let canvas = this._fc;
-                canvas.getObjects().map((obj) => {
-                    if (obj.objName === 'iText') {
-                        canvas.bringToFront(obj);
-                    }
-                });
             }, 10);
         }
     }
