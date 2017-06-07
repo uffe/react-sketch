@@ -29,7 +29,7 @@ class Line extends FabricCanvasTool {
             selectable: false,
             evented: false
         });
-        canvas.add(this.line);
+        canvas.insertAt(this.line, 1);
     }
 
     doMouseMove(o) {
