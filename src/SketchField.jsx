@@ -268,14 +268,14 @@ class SketchField extends Component {
             let onChange = this.props.onChange;
             setTimeout(() => {
                 onChange(e.e);
+                let canvas = this._fc;
+                canvas.getObjects().map((obj) => {
+                    if (obj.objName === 'iText') {
+                        canvas.bringToFront(obj);
+                    }
+                });
             }, 10);
         }
-        let canvas = this._fc;
-        canvas.getObjects().map((obj) => {
-            if (obj.objName === 'iText') {
-                canvas.bringToFront(obj);
-            }
-        });
     }
 
     _onMouseOut(e) {
