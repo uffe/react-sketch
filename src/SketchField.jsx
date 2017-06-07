@@ -90,7 +90,9 @@ class SketchField extends Component {
         this._onObjectModified = this._onObjectModified.bind(this);
         this._onObjectRotating = this._onObjectRotating.bind(this);
         // pure render
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);       
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);    
+
+        this.baseImage = {};   
     }
 
     state = {
@@ -147,7 +149,14 @@ class SketchField extends Component {
             if ('url' === defaultDataType) {
                 this.fromDataURL(defaultData);
             }
-        }     
+        }
+
+        // set all created paths to low draw order
+        canvas.on('path:created', function(e){
+            const path = e.path;
+            canvas.setToBack(path);
+            canvas.setToBack(this.baseImage);
+        });
     }
 
     onRemoveObject() {
@@ -254,6 +263,9 @@ class SketchField extends Component {
 
     _onMouseDown(e) {
         this._selectedTool.doMouseDown(e);
+        // send background image to back of draw order
+        const canvas = this._fc;
+        canvas.setToBack(this.baseImage);
     }
 
     _onMouseMove(e) {
@@ -552,16 +564,16 @@ class SketchField extends Component {
     // Loads an Image object into the bottom layer of the canvas. Unlike a background image, this will work with zoom.
     setBaseImage(img) {
         let canvas = this._fc;
-        let image = new fabric.Image(img);
-        image.set({ 
+        this.baseImage = new fabric.Image(img);
+        this.baseImage.set({ 
             selectable: false,
             top: canvas.height / 2,
             left: canvas.width / 2,
-            scaleY: canvas.height / image.height,
-            scaleX: canvas.width / image.width           
+            scaleY: canvas.height / this.baseImage.height,
+            scaleX: canvas.width / this.baseImage.width           
         });
-        canvas.centerObject(image);
-        canvas.add(image);
+        canvas.centerObject(this.baseImage);
+        canvas.add(this.baseImage);
     }
 
     centerContent() {

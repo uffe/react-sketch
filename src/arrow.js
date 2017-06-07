@@ -57,6 +57,8 @@ class Arrow extends FabricCanvasTool {
 
         canvas.add(this.line);
         canvas.add(this.arrowhead);
+        canvas.setToBack(this.line);
+        canvas.setToBack(this.arrowhead);
     }
 
     doMouseMove(o) {
