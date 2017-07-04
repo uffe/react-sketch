@@ -12,8 +12,9 @@ class Select extends FabricCanvasTool {
         canvas.forEachObject((o) => {
             o.selectable = o.evented = true;
         });
-        canvas.setActiveObject(canvas.item(0)).selectable = false; // first (background) image not selectable
+        const background = canvas.item(0);
+        background.selectable = background.evented = false; // first (background) image not selectable
     }
 }
 
-export default Select
+export default Select;
