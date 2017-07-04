@@ -109,6 +109,7 @@ class SketchFieldDemo extends React.Component {
         this._undo = this._undo.bind(this);
         this._redo = this._redo.bind(this);
         this._clear = this._clear.bind(this);
+        this._delete = this._delete.bind(this);
         this._removeMe = this._removeMe.bind(this);
         this._download = this._download.bind(this);
         this._renderTile = this._renderTile.bind(this);
@@ -247,6 +248,10 @@ class SketchFieldDemo extends React.Component {
         })
     }
 
+    _delete() {
+        this._sketch.delete();
+    }
+
     _onSketchChange() {
         let prev = this.state.canUndo;
         let now = this._sketch.canUndo();
@@ -281,6 +286,11 @@ class SketchFieldDemo extends React.Component {
                     <div className='row'>
                         <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
                             <AppBar title='Sketch Tool' showMenuIconButton={false} style={styles.appBar}>
+                                <IconButton
+                                    onTouchTap={this._delete}
+                                    iconStyle={styles.iconButton}>
+                                    <ClearIcon />
+                                </IconButton>                                
                                 <IconButton
                                     onTouchTap={this._undo}
                                     iconStyle={styles.iconButton}

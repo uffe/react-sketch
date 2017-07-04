@@ -370,6 +370,15 @@ class SketchField extends Component {
         canvas.calcOffset();
     }
 
+    delete() {
+        let canvas = this._fc;
+        if(canvas.getActiveGroup()){
+            canvas.getActiveGroup().forEachObject(function(o){ canvas.remove(o) });
+            canvas.discardActiveGroup().renderAll();
+        } else {
+            canvas.remove(canvas.getActiveObject());
+        }
+    }
 
     /**
      * Perform an undo operation on canvas, if it cannot undo it will leave the canvas intact
