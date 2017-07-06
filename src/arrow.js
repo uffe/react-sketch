@@ -88,6 +88,7 @@ class Arrow extends FabricCanvasTool {
     }
 
     doMouseUp(o) {
+        /*
         let canvas = this._canvas;
 
         this.arrowGroup = new fabric.Group([ this.line, this.arrowhead ]);
@@ -96,7 +97,7 @@ class Arrow extends FabricCanvasTool {
         canvas.remove(this.arrowhead);
         
         canvas.add(this.arrowGroup);
-
+        */
         this.isDown = false;
     }
 
