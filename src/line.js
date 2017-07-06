@@ -10,8 +10,8 @@ class Line extends FabricCanvasTool {
     configureCanvas(props) {
         let canvas = this._canvas;
         canvas.isDrawingMode = false;
-        canvas.selection = true;
-        // canvas.forEachObject((o) => o.selectable = o.evented = false);
+        canvas.selection = false;
+        canvas.forEachObject((o) => o.selectable = o.evented = false);
         this._width = props.lineWidth;
         this._color = props.lineColor;
     }
